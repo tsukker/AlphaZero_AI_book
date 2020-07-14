@@ -35,7 +35,7 @@ class State:
     def is_done(self):
         return self.is_lose() or self.is_draw()
 
-    def next(self, action):
+    def next_state(self, action):
         pieces = self.pieces.copy()
         pieces[action] = 1
         return State(self.enemy_pieces, pieces)
@@ -76,7 +76,7 @@ def alpha_beta(state, alpha, beta):
     if state.is_draw():
         return 0
     for action in state.legal_actions():
-        score = -alpha_beta(state.next(action), -beta, -alpha)
+        score = -alpha_beta(state.next_state(action), -beta, -alpha)
         if alpha < score:
             alpha = score
         if beta <= alpha:
@@ -89,7 +89,7 @@ def alpha_beta_action(state):
     alpha = -float('inf')
     s = ['', '']
     for action in state.legal_actions():
-        score = -alpha_beta(state.next(action), -float('inf'), -alpha)
+        score = -alpha_beta(state.next_state(action), -float('inf'), -alpha)
         if alpha < score:
             best_action = action
             alpha = score
@@ -105,7 +105,7 @@ def playout(state):
         return -1
     if state.is_draw():
         return 0
-    return -playout(state.next(random_action(state)))
+    return -playout(state.next_state(random_action(state)))
 
 
 def argmax(collection, key=None):
@@ -117,7 +117,7 @@ def mcs_action(state):
     values = [0 for _ in range(len(legal_actions))]
     for i, action in enumerate(legal_actions):
         for _ in range(10):
-            values[i] += -playout(state.next(action))
+            values[i] += -playout(state.next_state(action))
     return legal_actions[argmax(values)]
 
 
@@ -149,7 +149,7 @@ class Node:
 
     def expand(self):
         self.child_nodes = [
-            Node(self.state.next(action))
+            Node(self.state.next_state(action))
             for action in self.state.legal_actions()
         ]
 
@@ -181,5 +181,5 @@ if __name__ == '__main__':
     while True:
         if state.is_done():
             break
-        state = state.next(random_action(state))
+        state = state.next_state(random_action(state))
         print(state)

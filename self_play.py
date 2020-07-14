@@ -43,7 +43,7 @@ def play(model):
         history.append([[state.pieces, state.enemy_pieces], policies, None])
 
         action = np.random.choice(state.legal_actions(), p=scores)
-        state = state.next(action)
+        state = state.next_state(action)
     value = first_player_value(state)
     for i in range(len(history)):
         history[i][2] = value

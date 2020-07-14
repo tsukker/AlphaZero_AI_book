@@ -70,7 +70,7 @@ class Node:
             self.n += 1
 
             self.child_nodes = [
-                Node(self.state.next(action), policy)
+                Node(self.state.next_state(action), policy)
                 for action, policy in zip(self.state.legal_actions(), policies)
             ]
             return value
@@ -109,5 +109,5 @@ if __name__ == '__main__':
         if state.is_done():
             break
         action = next_action(state)
-        state = state.next(action)
+        state = state.next_state(action)
         print(state)
