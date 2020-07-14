@@ -7,7 +7,7 @@ import tensorflow as tf
 from game import State
 from pv_mcts import pv_mcts_action
 
-EN_GAME_COUNT = 10  # count of games per evaluation, AlphaZero: 400
+EN_GAME_COUNT = 100  # count of games per evaluation, AlphaZero: 400
 EN_TEMPERATURE = 1.0  # temp. param of boltzman distribution
 
 
@@ -45,7 +45,7 @@ def evaluate_network():
         if i % 2 == 0:
             total_point += play(next_actions)
         else:
-            total_point += play(reversed_actions)
+            total_point += 1 - play(reversed_actions)
         print('\rEvaluate {}/{}'.format(i + 1, EN_GAME_COUNT), end='')
     print('')
     average_point = total_point / EN_GAME_COUNT
