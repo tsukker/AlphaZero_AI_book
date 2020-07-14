@@ -4,7 +4,7 @@ import tensorflow as tf
 
 DN_FILTERS = 128
 DN_RESIDUAL_NUM = 16
-DN_INPUT_SHAPE = (3, 3, 2)
+DN_INPUT_SHAPE = [3, 3, 2]
 DN_OUTPUT_SIZE = 9
 
 
