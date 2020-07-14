@@ -54,7 +54,7 @@ def evaluate_network():
     tf.keras.backend.clear_session()
     del models
 
-    if 0.5 < average_point:
+    if 0.55 < average_point:
         update_best_player()
         return True
     else:
