@@ -8,7 +8,7 @@ pylint = "~=2.5"
 yapf = "~=0.30"
 
 [packages]
-tensorflow = "~=2.2"
+tensorflow = "~=2.5"
 
 [requires]
 python_version = "3.8"
